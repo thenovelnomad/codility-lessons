@@ -49,7 +49,7 @@
 
 function solution(S, P, Q) {
     // write your code in JavaScript (Node.js 0.12)
-    console.log(S);
+
     var minFactors = [];
     var impactFactors = {
         'A': 1,
@@ -72,6 +72,8 @@ function solution(S, P, Q) {
 
             if ( found ) return factors[ key ];
         }
+
+        return -1;
     }
 
     for ( var i = 0; i < P.length; i++ ) {
@@ -88,7 +90,7 @@ var test1 = {
     Q: [ 4, 5, 6 ]
 };
 
-console.log(solution(test1.S, test1.P, test1.Q));
+// console.log(solution(test1.S, test1.P, test1.Q));
 
 function randomGene( length ) {
     function randomNT() {
@@ -108,4 +110,30 @@ function randomGene( length ) {
     return gene;
 }
 
-console.log( randomGene( 1000 ) );
+function randomInt( min, max ) {
+    return Math.floor( Math.random() * ( max - min ) ) + min;
+}
+
+function randomArray( arrayLength, stringLength ) {
+
+    var arr = [];
+
+    for ( var i = 0; i < arrayLength; i++ ) {
+        arr.push( randomInt( 0, stringLength - 1 ) );
+    }
+
+    return arr;
+}
+
+function Test(max) {
+    max = max || 100000;
+    this.S = randomGene( randomInt( 1, max ) ),
+    this.P = randomArray( randomInt( 1, max / 2 ), this.S.length );
+    this.Q = randomArray( this.P.length, this.S.length );
+};
+
+var test2 = new Test(100);
+
+console.log( test2 );
+// console.log( test2.Q() );
+console.log(solution(test2.S, test2.P, test2.Q));
